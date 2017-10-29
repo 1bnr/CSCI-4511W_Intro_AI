@@ -182,6 +182,7 @@ def tree_search(problem, frontier):
     The argument frontier should be an empty queue.
     Don't worry about repeated paths to a state. [Figure 3.7]"""
     frontier.append(Node(problem.initial))
+    count = 0
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
@@ -232,9 +233,9 @@ def breadth_first_search(problem):
     explored = set()
     while frontier:
         node = frontier.pop()
-        explored.add(node.state)
+        explored.add(tuple(node.state))
         for child in node.expand(problem):
-            if child.state not in explored and child not in frontier:
+            if tuple(child.state) not in explored and child not in frontier:
                 if problem.goal_test(child.state):
                     return child
                 frontier.append(child)
